@@ -1,0 +1,15 @@
+IOT:
+Internet of things
+raspberry pi os: 
+1) risc os
+2) free bsd
+3) net bsd
+4) plan 9 from bell labs
+5) windows 10 iot
+
+noobs better 32gb memory card. insert it on raspberry
+
+raspbian install
+1) sensehat board to measure weather metrics of temperature, humidity, pressure onto raspberry pi
+2) use raspberry pi to transfer weather data and display on sensehat board
+3) Instapush api and python script to push these notifications across internet

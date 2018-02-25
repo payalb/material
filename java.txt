@@ -1,0 +1,20 @@
+JVM architecture:
+
+java file -> javac -> java class file created. ->JVM will  Load this class file and execute this file. .class file dumped in classloader. execution engine should execute it
+
+Class loader subsystem: ; loading, linking, initialization.
+
+Loading: Bootstrap , Extension, Application 
+
+Linking: Verify (bytecode verifier else verify error), prepare (static variables memory allocated, allotted default values), resolve( symbolic references replaced with original values)
+
+Memory areas of JVM: method area (class level data will be there: static ), heap( object data), stack( diff stack for each thread: local variable array, frame data (symbols, execption), operand stack), pc register ( for each thread: address of next instruction), native method stack(one for each thread: )
+
+Execution engine: Can communicate with memory areas. (Has interpretor, Jit compiler : Intermediate code generator -> Code optimizer -> Target code generator), Profiler (identifies hotspot, method being reused, only that would be handled by jit) , garbage collector, security manager, java native interface (jni: to provide native method information)
+
+java class file structure:
+magic_number (1st four byte in every .class file should be 0xCAFEBABE), minor_version, major_version, constant_pool_count, constant_pool[],interface_count, interface[], method_count, method[], attribute_count, attributes[], access_flag, this_class, super_class, field_count, field[]
+
+If compiler 1.6 and jvm 1.7 => can be executed
+If compiler 1.7 and jvm 1.6 => runtime exception. unsupported version exception
+

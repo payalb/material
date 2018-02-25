@@ -1,0 +1,11 @@
+application server: middle layer support to web server
+
+N tier, transparent client server relationships. servers working together: unix
+
+HttpServer, EJBServer
+jdbc
+jndi: components to find other components in enterprise system.
+servlets
+jsp
+
+cgi: common gateway interface. 

@@ -1,0 +1,30 @@
+javax.mail and javax.mail.activation: javaMail api.
+
+1) regitering user
+2) forgot password
+3) notification for updates
+
+Protocols:
+1) SMTP (Simple mail transfer protocol). Can use apache james server, postcast server, cmail server etc) Uses authentication for sending, receiving mail.
+2) POP (Post office proptocol: pop3, single mail box for each user)
+3) IMAP: Internet message access protocol. Advanced protocol for receiving messages. Multiple mail boxes for each user.
+4) MIME: Multiple internet mail extension. Tells browser what is being sent (attachment, format of message)
+5) NNTP, others: (Network news transfer protocol), S/MIME: secure multipurpose internet mail extension
+
+Java mail uses SPI( service provider interface) to deal with various protocols)
+
+Classes:
+Session, Message, MimeMessage, Address, InternetAddress, Authenticator, PasswordAuthentication, Transport, Store, Folder
+
+
+Send mail: 
+1) Get session object
+2) Compose message
+3) Send message
+
+
+
+
+
+
+
