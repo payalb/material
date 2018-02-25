@@ -1,0 +1,3 @@
+spring integration and batch
+
+jsr352: java spec for building, deploying and running java app

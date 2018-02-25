@@ -1,0 +1,245 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0139)http://nishutayaltech.blogspot.in/2015/04/how-to-run-apache-spark-on-windows7-in.html -->
+<!DOCTYPE HTML><HTML class="v2" dir="ltr"><HEAD><META content="IE=9.0000" 
+http-equiv="X-UA-Compatible">
+ <LINK href="spark_files/3213516723-css_bundle_v2.css" rel="stylesheet" type="text/css"> 
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+<META name="GENERATOR" content="MSHTML 11.00.9600.18377"> <LINK href="http://nishutayaltech.blogspot.in/favicon.ico" 
+rel="icon" type="image/x-icon"> <LINK href="http://nishutayaltech.blogspot.com/2015/04/how-to-run-apache-spark-on-windows7-in.html" 
+rel="canonical"> <LINK title="Technical blog - Atom" href="http://nishutayaltech.blogspot.com/feeds/posts/default" 
+rel="alternate" type="application/atom+xml"> <LINK title="Technical blog - RSS" 
+href="http://nishutayaltech.blogspot.com/feeds/posts/default?alt=rss" rel="alternate" 
+type="application/rss+xml"> <LINK title="Technical blog - Atom" href="https://www.blogger.com/feeds/7459259550976670934/posts/default" 
+rel="service.post" type="application/atom+xml"> <LINK title="Technical blog - Atom" 
+href="http://nishutayaltech.blogspot.com/feeds/4722520428505259429/comments/default" 
+rel="alternate" type="application/atom+xml"> <!--[if IE]>
+<SCRIPT src="spark_files/771816573-ieretrofit.js" type="text/javascript"></SCRIPT>
+ <![endif]--><LINK href="https://4.bp.blogspot.com/-cgSmScJ771A/VS6VzSdLp8I/AAAAAAAAEQ0/ipkZWy-CZeo/s1600/scalaversion.png" 
+rel="image_src"> 
+<META content="http://nishutayaltech.blogspot.com/2015/04/how-to-run-apache-spark-on-windows7-in.html" 
+property="og:url"> 
+<META content="How to run Apache Spark on Windows7 in standalone mode" property="og:title"> 
+<META content="  So far, we might have done setup of Spark with Hadoop, EC2 or mesos on Linux machine.&nbsp; But what if we don’t want with Hadoop/EC2, we just ..." 
+property="og:description"> 
+<META content="https://4.bp.blogspot.com/-cgSmScJ771A/VS6VzSdLp8I/AAAAAAAAEQ0/ipkZWy-CZeo/w1200-h630-p-k-no-nu/scalaversion.png" 
+property="og:image"> <!--[if IE]>
+<SCRIPT> (function() { var html5 = ("abbr,article,aside,audio,canvas,datalist,details," + "figure,footer,header,hgroup,mark,menu,meter,nav,output," + "progress,section,time,video").split(','); for (var i = 0; i < html5.length; i++) { document.createElement(html5[i]); } try { document.execCommand('BackgroundImageCache', false, true); } catch(e) {} })(); </SCRIPT>
+ <![endif]--><TITLE>Technical blog: How to run Apache Spark on Windows7 in 
+standalone mode</TITLE> 
+<META name="fragment" content="!"> 
+<META name="blogger-template" content="dynamic"> 
+<META http-equiv="X-UA-Compatible" content="IE=9,chrome=1"> 
+<META name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width"> 
+<STYLE id="page-skin-1" type="text/css"><!--
+/*-----------------------------------------------
+Blogger Template Style
+Name: Dynamic Views
+----------------------------------------------- */
+/* Variable definitions
+====================
+<Variable name="keycolor" description="Main Color" type="color" default="#ffffff"
+variants="#2b256f,#00b2b4,#4ba976,#696f00,#b38f00,#f07300,#d0422c,#f37a86,#7b5341"/>
+<Group description="Page">
+<Variable name="page.text.font" description="Font" type="font"
+default="'Helvetica Neue Light', HelveticaNeue-Light, 'Helvetica Neue', Helvetica, Arial, sans-serif"/>
+<Variable name="page.text.color" description="Text Color" type="color"
+default="#333333" variants="#333333"/>
+<Variable name="body.background.color" description="Background Color" type="color"
+default="#EEEEEE"
+variants="#dfdfea,#d9f4f4,#e4f2eb,#e9ead9,#f4eed9,#fdead9,#f8e3e0,#fdebed,#ebe5e3"/>
+</Group>
+<Variable name="body.background" description="Body Background" type="background"
+color="#EEEEEE" default="$(color) none repeat scroll top left"/>
+<Group description="Header">
+<Variable name="header.background.color" description="Background Color" type="color"
+default="#F3F3F3" variants="#F3F3F3"/>
+</Group>
+<Group description="Header Bar">
+<Variable name="primary.color" description="Background Color" type="color"
+default="#333333" variants="#2b256f,#00b2b4,#4ba976,#696f00,#b38f00,#f07300,#d0422c,#f37a86,#7b5341"/>
+<Variable name="menu.font" description="Font" type="font"
+default="'Helvetica Neue Light', HelveticaNeue-Light, 'Helvetica Neue', Helvetica, Arial, sans-serif"/>
+<Variable name="menu.text.color" description="Text Color" type="color"
+default="#FFFFFF" variants="#FFFFFF"/>
+</Group>
+<Group description="Links">
+<Variable name="link.font" description="Link Text" type="font"
+default="'Helvetica Neue Light', HelveticaNeue-Light, 'Helvetica Neue', Helvetica, Arial, sans-serif"/>
+<Variable name="link.color" description="Link Color" type="color"
+default="#009EB8"
+variants="#2b256f,#00b2b4,#4ba976,#696f00,#b38f00,#f07300,#d0422c,#f37a86,#7b5341"/>
+<Variable name="link.hover.color" description="Link Hover Color" type="color"
+default="#009EB8"
+variants="#2b256f,#00b2b4,#4ba976,#696f00,#b38f00,#f07300,#d0422c,#f37a86,#7b5341"/>
+<Variable name="link.visited.color" description="Link Visited Color" type="color"
+default="#009EB8"
+variants="#2b256f,#00b2b4,#4ba976,#696f00,#b38f00,#f07300,#d0422c,#f37a86,#7b5341"/>
+</Group>
+<Group description="Blog Title">
+<Variable name="blog.title.font" description="Font" type="font"
+default="'Helvetica Neue Light', HelveticaNeue-Light, 'Helvetica Neue', Helvetica, Arial, sans-serif"/>
+<Variable name="blog.title.color" description="Color" type="color"
+default="#555555" variants="#555555"/>
+</Group>
+<Group description="Blog Description">
+<Variable name="blog.description.font" description="Font" type="font"
+default="'Helvetica Neue Light', HelveticaNeue-Light, 'Helvetica Neue', Helvetica, Arial, sans-serif"/>
+<Variable name="blog.description.color" description="Color" type="color"
+default="#555555" variants="#555555"/>
+</Group>
+<Group description="Post Title">
+<Variable name="post.title.font" description="Font" type="font"
+default="'Helvetica Neue Light', HelveticaNeue-Light, 'Helvetica Neue', Helvetica, Arial, sans-serif"/>
+<Variable name="post.title.color" description="Color" type="color"
+default="#333333" variants="#333333"/>
+</Group>
+<Group description="Date Ribbon">
+<Variable name="ribbon.color" description="Color" type="color"
+default="#666666" variants="#2b256f,#00b2b4,#4ba976,#696f00,#b38f00,#f07300,#d0422c,#f37a86,#7b5341"/>
+<Variable name="ribbon.hover.color" description="Hover Color" type="color"
+default="#AD3A2B" variants="#AD3A2B"/>
+</Group>
+<Variable name="blitzview" description="Initial view type" type="string" default="sidebar"/>
+*/
+/* BEGIN CUT */
+{
+"font:Text": "'Helvetica Neue Light', HelveticaNeue-Light, 'Helvetica Neue', Helvetica, Arial, sans-serif",
+"color:Text": "#333333",
+"image:Background": "#EEEEEE none repeat scroll top left",
+"color:Background": "#EEEEEE",
+"color:Header Background": "#F3F3F3",
+"color:Primary": "#333333",
+"color:Menu Text": "#FFFFFF",
+"font:Menu": "'Helvetica Neue Light', HelveticaNeue-Light, 'Helvetica Neue', Helvetica, Arial, sans-serif",
+"font:Link": "'Helvetica Neue Light', HelveticaNeue-Light, 'Helvetica Neue', Helvetica, Arial, sans-serif",
+"color:Link": "#009EB8",
+"color:Link Visited": "#009EB8",
+"color:Link Hover": "#009EB8",
+"font:Blog Title": "'Helvetica Neue Light', HelveticaNeue-Light, 'Helvetica Neue', Helvetica, Arial, sans-serif",
+"color:Blog Title": "#555555",
+"font:Blog Description": "'Helvetica Neue Light', HelveticaNeue-Light, 'Helvetica Neue', Helvetica, Arial, sans-serif",
+"color:Blog Description": "#555555",
+"font:Post Title": "'Helvetica Neue Light', HelveticaNeue-Light, 'Helvetica Neue', Helvetica, Arial, sans-serif",
+"color:Post Title": "#333333",
+"color:Ribbon": "#666666",
+"color:Ribbon Hover": "#AD3A2B",
+"view": "sidebar"
+}
+/* END CUT */
+
+--></STYLE>
+ 
+<STYLE id="template-skin-1" type="text/css"><!--
+body {
+min-width: 960px;
+}
+.column-center-outer {
+margin-top: 46px;
+}
+.content-outer, .content-fauxcolumn-outer, .region-inner {
+min-width: 960px;
+max-width: 960px;
+_width: 960px;
+}
+.main-inner .columns {
+padding-left: 0;
+padding-right: 310px;
+}
+.main-inner .fauxcolumn-center-outer {
+left: 0;
+right: 310px;
+/* IE6 does not respect left and right together */
+_width: expression(this.parentNode.offsetWidth -
+parseInt("0") -
+parseInt("310px") + 'px');
+}
+.main-inner .fauxcolumn-left-outer {
+width: 0;
+}
+.main-inner .fauxcolumn-right-outer {
+width: 310px;
+}
+.main-inner .column-left-outer {
+width: 0;
+right: 100%;
+margin-left: -0;
+}
+.main-inner .column-right-outer {
+width: 310px;
+margin-right: -310px;
+}
+#layout {
+min-width: 0;
+}
+#layout .content-outer {
+min-width: 0;
+width: 800px;
+}
+#layout .region-inner {
+min-width: 0;
+width: auto;
+}
+--></STYLE>
+ 
+<SCRIPT src="spark_files/jquery.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="spark_files/jquery-mousewheel.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="spark_files/common.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="spark_files/lang__en_gb.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="spark_files/sidebar.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="spark_files/gadgets.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="spark_files/comments.js"></SCRIPT>
+ <LINK onload="if(media!='all')media='all'" href="https://www.blogger.com/dyn-css/authorization.css?targetBlogID=7459259550976670934&amp;zx=c5b724c5-2f4c-4090-af4f-24e1fa59cdca" 
+rel="stylesheet" media="none"><NOSCRIPT>&lt;link 
+href='https://www.blogger.com/dyn-css/authorization.css?targetBlogID=7459259550976670934&amp;zx=c5b724c5-2f4c-4090-af4f-24e1fa59cdca' 
+rel='stylesheet'/&gt;</NOSCRIPT> </HEAD>
+<BODY class="variant-sidebar"> 
+<DIV class="content">
+<DIV class="content-outer">
+<DIV class="fauxborder-left content-fauxborder-left">
+<DIV class="content-inner">
+<DIV class="main-outer">
+<DIV class="fauxborder-left main-fauxborder-left">
+<DIV class="region-inner main-inner">
+<DIV class="columns fauxcolumns">
+<DIV class="column-center-outer">
+<DIV class="column-center-inner">
+<DIV class="main section" id="main"></DIV></DIV></DIV>
+<DIV class="column-right-outer">
+<DIV class="column-right-inner"><ASIDE>
+<DIV class="sidebar section" id="sidebar-right-1"></DIV></ASIDE></DIV></DIV>
+<DIV style="clear: both;"></DIV></DIV></DIV></DIV></DIV></DIV></DIV></DIV></DIV>
+<SCRIPT language="javascript" type="text/javascript">
+      window.onload = function() {
+        blogger.ui().configure().view();
+      };
+    </SCRIPT>
+ 
+<SCRIPT src="spark_files/plusone.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="spark_files/3577707566-widgets.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT type="text/javascript">
+window['__wavt'] = 'AOuZoY6X6lmYw7aYRpvjalSs0nc0BduQXQ:1511619199827';_WidgetManager._Init('//www.blogger.com/rearrange?blogID\x3d7459259550976670934','//nishutayaltech.blogspot.in/2015/04/how-to-run-apache-spark-on-windows7-in.html','7459259550976670934');
+_WidgetManager._SetDataContext([{'name': 'blog', 'data': {'blogId': '7459259550976670934', 'title': 'Technical blog', 'url': 'http://nishutayaltech.blogspot.in/2015/04/how-to-run-apache-spark-on-windows7-in.html', 'canonicalUrl': 'http://nishutayaltech.blogspot.com/2015/04/how-to-run-apache-spark-on-windows7-in.html', 'homepageUrl': 'http://nishutayaltech.blogspot.in/', 'searchUrl': 'http://nishutayaltech.blogspot.in/search', 'canonicalHomepageUrl': 'http://nishutayaltech.blogspot.com/', 'blogspotFaviconUrl': 'http://nishutayaltech.blogspot.in/favicon.ico', 'bloggerUrl': 'https://www.blogger.com', 'hasCustomDomain': false, 'httpsEnabled': true, 'enabledCommentProfileImages': true, 'gPlusViewType': 'FILTERED_POSTMOD', 'adultContent': false, 'analyticsAccountNumber': '', 'encoding': 'UTF-8', 'locale': 'en-GB', 'localeUnderscoreDelimited': 'en_gb', 'languageDirection': 'ltr', 'isPrivate': false, 'isMobile': false, 'isMobileRequest': false, 'mobileClass': '', 'isPrivateBlog': false, 'feedLinks': '\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x22Technical blog - Atom\x22 href\x3d\x22http://nishutayaltech.blogspot.com/feeds/posts/default\x22 /\x3e\n\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/rss+xml\x22 title\x3d\x22Technical blog - RSS\x22 href\x3d\x22http://nishutayaltech.blogspot.com/feeds/posts/default?alt\x3drss\x22 /\x3e\n\x3clink rel\x3d\x22service.post\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x22Technical blog - Atom\x22 href\x3d\x22https://www.blogger.com/feeds/7459259550976670934/posts/default\x22 /\x3e\n\n\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x22Technical blog - Atom\x22 href\x3d\x22http://nishutayaltech.blogspot.com/feeds/4722520428505259429/comments/default\x22 /\x3e\n', 'meTag': '', 'openIdOpTag': '', 'adsenseClientId': 'ca-pub-6095720369181114', 'adsenseHostId': 'ca-host-pub-1556223355139109', 'adsenseHasAds': true, 'ieCssRetrofitLinks': '\x3c!--[if IE]\x3e\x3cscript type\x3d\x22text/javascript\x22 src\x3d\x22https://www.blogger.com/static/v1/jsbin/771816573-ieretrofit.js\x22\x3e\x3c/script\x3e\n\x3c![endif]--\x3e', 'view': '', 'dynamicViewsCommentsSrc': '//www.blogblog.com/dynamicviews/4224c15c4e7c9321/js/comments.js', 'dynamicViewsScriptSrc': '//www.blogblog.com/dynamicviews/5e49a9bcd60ebb33', 'plusOneApiSrc': 'https://apis.google.com/js/plusone.js', 'sharing': {'platforms': [{'name': 'Get link', 'key': 'link', 'shareMessage': 'Get link', 'target': ''}, {'name': 'Facebook', 'key': 'facebook', 'shareMessage': 'Share to Facebook', 'target': 'facebook'}, {'name': 'BlogThis!', 'key': 'blogThis', 'shareMessage': 'BlogThis!', 'target': 'blog'}, {'name': 'Twitter', 'key': 'twitter', 'shareMessage': 'Share to Twitter', 'target': 'twitter'}, {'name': 'Pinterest', 'key': 'pinterest', 'shareMessage': 'Share to Pinterest', 'target': 'pinterest'}, {'name': 'Google+', 'key': 'googlePlus', 'shareMessage': 'Share to Google+', 'target': 'googleplus'}, {'name': 'Email', 'key': 'email', 'shareMessage': 'Email', 'target': 'email'}], 'googlePlusShareButtonWidth': 300, 'googlePlusBootstrap': '\x3cscript type\x3d\x22text/javascript\x22\x3ewindow.___gcfg \x3d {\x27lang\x27: \x27en_GB\x27};\x3c/script\x3e'}, 'hasCustomJumpLinkMessage': false, 'jumpLinkMessage': 'Read more', 'pageType': 'item', 'postId': '4722520428505259429', 'postImageThumbnailUrl': 'https://4.bp.blogspot.com/-cgSmScJ771A/VS6VzSdLp8I/AAAAAAAAEQ0/ipkZWy-CZeo/s72-c/scalaversion.png', 'postImageUrl': 'https://4.bp.blogspot.com/-cgSmScJ771A/VS6VzSdLp8I/AAAAAAAAEQ0/ipkZWy-CZeo/s1600/scalaversion.png', 'pageName': 'How to run Apache Spark on Windows7 in standalone mode', 'pageTitle': 'Technical blog: How to run Apache Spark on Windows7 in standalone mode'}}, {'name': 'features', 'data': {'lazy_images': 'false', 'unsupported_browser_message': 'false', 'lightbox_img_parsing': 'true', 'video_theatre_support': 'true', 'sharing_get_link_dialog': 'false', 'sharing_native': 'false'}}, {'name': 'messages', 'data': {'edit': 'Edit', 'linkCopiedToClipboard': 'Link copied to clipboard', 'ok': 'Ok', 'postLink': 'Post link'}}, {'name': 'skin', 'data': {'vars': {'link_color': '#009EB8', 'post_title_color': '#333333', 'blog_description_font': '\x27Helvetica Neue Light\x27, HelveticaNeue-Light, \x27Helvetica Neue\x27, Helvetica, Arial, sans-serif', 'body_background_color': '#EEEEEE', 'ribbon_color': '#666666', 'body_background': '#EEEEEE none repeat scroll top left', 'blitzview': 'sidebar', 'link_visited_color': '#009EB8', 'link_hover_color': '#009EB8', 'header_background_color': '#F3F3F3', 'keycolor': '#ffffff', 'page_text_font': '\x27Helvetica Neue Light\x27, HelveticaNeue-Light, \x27Helvetica Neue\x27, Helvetica, Arial, sans-serif', 'blog_title_color': '#555555', 'ribbon_hover_color': '#AD3A2B', 'blog_title_font': '\x27Helvetica Neue Light\x27, HelveticaNeue-Light, \x27Helvetica Neue\x27, Helvetica, Arial, sans-serif', 'link_font': '\x27Helvetica Neue Light\x27, HelveticaNeue-Light, \x27Helvetica Neue\x27, Helvetica, Arial, sans-serif', 'menu_font': '\x27Helvetica Neue Light\x27, HelveticaNeue-Light, \x27Helvetica Neue\x27, Helvetica, Arial, sans-serif', 'primary_color': '#333333', 'page_text_color': '#333333', 'post_title_font': '\x27Helvetica Neue Light\x27, HelveticaNeue-Light, \x27Helvetica Neue\x27, Helvetica, Arial, sans-serif', 'blog_description_color': '#555555', 'menu_text_color': '#FFFFFF'}, 'override': '', 'url': 'blitz.css'}}, {'name': 'template', 'data': {'name': 'Dynamic Views', 'localizedName': 'Dynamic Views', 'isResponsive': false, 'isAlternateRendering': false, 'isCustom': false, 'variant': 'sidebar', 'variantId': 'sidebar'}}, {'name': 'view', 'data': {'classic': {'name': 'classic', 'url': '?view\x3dclassic'}, 'flipcard': {'name': 'flipcard', 'url': '?view\x3dflipcard'}, 'magazine': {'name': 'magazine', 'url': '?view\x3dmagazine'}, 'mosaic': {'name': 'mosaic', 'url': '?view\x3dmosaic'}, 'sidebar': {'name': 'sidebar', 'url': '?view\x3dsidebar'}, 'snapshot': {'name': 'snapshot', 'url': '?view\x3dsnapshot'}, 'timeslide': {'name': 'timeslide', 'url': '?view\x3dtimeslide'}, 'isMobile': false, 'title': 'How to run Apache Spark on Windows7 in standalone mode', 'description': '  So far, we might have done setup of Spark with Hadoop, EC2 or mesos on Linux machine.&#160; But what if we don&#8217;t want with Hadoop/EC2, we just ...', 'featuredImage': 'https://4.bp.blogspot.com/-cgSmScJ771A/VS6VzSdLp8I/AAAAAAAAEQ0/ipkZWy-CZeo/s1600/scalaversion.png', 'url': 'http://nishutayaltech.blogspot.in/2015/04/how-to-run-apache-spark-on-windows7-in.html', 'type': 'item', 'isSingleItem': true, 'isMultipleItems': false, 'isError': false, 'isPage': false, 'isPost': true, 'isHomepage': false, 'isArchive': false, 'isLabelSearch': false, 'postId': 4722520428505259429}}]);
+_WidgetManager._RegisterWidget('_BlogView', new _WidgetInfo('Blog1', 'main', null, document.getElementById('Blog1'), {'cmtInteractionsEnabled': false, 'showBacklinks': true, 'postId': '4722520428505259429', 'useNgc': false, 'lightboxEnabled': true, 'lightboxModuleUrl': 'https://www.blogger.com/static/v1/jsbin/1696218262-lbx__en_gb.js', 'lightboxCssUrl': 'https://www.blogger.com/static/v1/v-css/368954415-lightbox_bundle.css'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_AdSenseView', new _WidgetInfo('AdSense2', 'main', null, document.getElementById('AdSense2'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_AdSenseView', new _WidgetInfo('AdSense4', 'main', null, document.getElementById('AdSense4'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HeaderView', new _WidgetInfo('Header1', 'sidebar-right-1', null, document.getElementById('Header1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_AdSenseView', new _WidgetInfo('AdSense5', 'sidebar-right-1', null, document.getElementById('AdSense5'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_AdSenseView', new _WidgetInfo('AdSense1', 'sidebar-right-1', null, document.getElementById('AdSense1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_TranslateView', new _WidgetInfo('Translate1', 'sidebar-right-1', null, document.getElementById('Translate1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogArchiveView', new _WidgetInfo('BlogArchive1', 'sidebar-right-1', null, document.getElementById('BlogArchive1'), {'languageDirection': 'ltr', 'loadingMessage': 'Loading\x26hellip;'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_ProfileView', new _WidgetInfo('Profile1', 'sidebar-right-1', null, document.getElementById('Profile1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_FollowersView', new _WidgetInfo('Followers1', 'sidebar-right-1', null, document.getElementById('Followers1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_LabelView', new _WidgetInfo('Label1', 'sidebar-right-1', null, document.getElementById('Label1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_NavbarView', new _WidgetInfo('Navbar1', 'sidebar-right-1', null, document.getElementById('Navbar1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_AdSenseView', new _WidgetInfo('AdSense3', 'sidebar-right-1', null, document.getElementById('AdSense3'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_AttributionView', new _WidgetInfo('Attribution1', 'sidebar-right-1', null, document.getElementById('Attribution1'), {}, 'displayModeFull'));
+</SCRIPT>
+ </BODY></HTML>

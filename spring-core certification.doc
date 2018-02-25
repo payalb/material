@@ -1,0 +1,24 @@
+Core spring 4.2, 4.3 certification
+
+Spring dependency Injection
+
+In java, everything is considered as an object and only 2 kind of relationships can exist between them. First one is a Has-a relationship and another one is a Is-A relationship. Has-a relationship signifies a dependency of one object on the member variable, whereas is-a relationship signifies inheritance.
+
+To show a class Person which has an address field, we will demonstrate this using a has-a relationship.
+
+
+
+Address is also a class with member variables like street, pincode etc.
+
+
+
+Now to set the value of an address field in a person class, it can be done by either making a constructor in a Person class with Address as a parameter which is done preferably if Address is a mandatory field for a person class i.e. a Person object should not exist if no address has been assigned to it. Else should be done through a setter.
+
+Considering the scenario when a Person object can exist without an address been allocated to it, we’ll use the setter to set the address object in the person class. And the name of the Person and aadharCardNo is being considered as a mandatory field in this example without which a person should not exist. Hence we’ll use a parameterized constructor for it. Similarly, an address class is considered to have street, houseNo, city, state and pincode: all as mandatory fields hence using a parameterized constructor again for it. Address can be set for the Person object using a setter then.
+
+
+
+
+
+
+

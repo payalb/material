@@ -1,0 +1,96 @@
+Manual Testing:
+1) More time and resources
+2) Less accuracy
+3) Comparison of data is impractical
+4) Performance testing is impractical
+5) Batch testing is time taking
+6) Data driven testing is time taking
+
+Advantages of automation:
+1) fast
+2) reliability
+3) reusable: sanity testing, regression testing
+4) repeatable: data driven testing
+5) 
+
+
+Vendor tools:
+1) HP
+WinRunner (Scrapped)
+X-Runner (Scrapped)
+LoadRunner 
+QTP( Retired)
+UFT : qtp (ui testing) + (service tools)api testing
+test director: 
+
+alm (application lifecycle manager)
+
+2) IBM:
+Rational robot
+RFT (rational functional tester)
+RPT (rational performance tester)
+
+3) Microfocus
+silk test
+silk performer
+
+
+Open source tools:
+1) selenium
+2) Jmeter ( performance testing)
+3) Bugzilla (defect manqagement)
+
+Unified functional testing
+1) functional and regression test tool
+2) Developed in VC++ .net technology
+3) object based test tool, no frontend object reference required for database testing.
+4) standalone application
+
+Stores resources in file format. 1 tier application, no database. 2 engines:
+1) VB script engine
+2) sql engine
+
+UFT version history:
+1) astra quicktest (1.0 to 5.0)
+2) qtp: 5.6
+3) 6.5
+4) 8.0
+5) 8.2
+6) 9.0
+7) 9.2 //Mercury
+8) 9.5 // HP
+9) 10
+10) 11
+11) UFT //11.5
+
+OS: Microsoft, Unix, Linux, Solaris
+2) License:
+a) Seat/ Node locked 
+b) Concurrent / Float
+
+Internal add-ins:
+1) Standard windows
+2) Activex
+3) Visual basic
+4) Web
+
+External add-ins
+1) Java
+2) .net for windows forms
+3) .net for web forms
+4)  wpf (windows presentation foundation)
+5)  sap for gui
+6) sap for web
+7) peoplesoft
+8) delphi
+9) power builder
+10) oracle (for oracle apps)
+11) siebel
+12) TE (mainframe app)
+13) stingray
+14) small talk
+15) web services
+16) silverlight (video streaming technology)
+
+
+

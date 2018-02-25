@@ -1,0 +1,10 @@
+Big data analytics:
+1) batch analytics: analytics based on data collected over a period of time
+2) Real time analytics: analytics based on immediate data for instant result eg: credit card transactions at a location: if thinks not genuine, will send notification, ask for otp. Used in
+banking, stock market analysis, healthcare, telecommunications, stock market
+
+Spark vs hadoop:
+hadoop can only do batch analytics. Not meant for real time analytics.Spark enables real time processing as well as batch analytics.
+
+
+

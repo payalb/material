@@ -1,0 +1,237 @@
+javascript library, 
+jquery: cross browser, easier to use, extensible, rich ajax support, many plugins(autocomplete textbox).
+
+jquery 1.x to support ie6,7,8 else for modern browser jquery 2.x (smaller in size)
+
+developers.google.com/speed/libraries: jquery.min.js
+
+1) ready() method is called after the DOM has been initialized
+2) jquery selectors selects elements to add behavior.
+$(selectorexpression)
+jquery(selectorexpression)
+
+jquery(document).ready(function() {
+			$("#button1").click(function() {
+				alert("clicked jquery!");
+			});
+		});
+
+$(function() {
+			$("#button1").click(function() {
+				alert("clicked jquery!");
+			}););
+
+
+$(document).ready() fired when dom is loaded and ready to be manipulated by the script.Before images, css are loaded.
+
+$(window).load() event fired when page fully loaded including images, css. To get width, height of image, should wait until image fully loaded.
+
+CDN: content delivery network. System of distributed networks hosts images, css, js etc. Google, ms has free public cdn to load jquery instead of running on own webserver
+developers.google.com/speed/libraries/devguide#jquery
+
+<script  src="http://ajax.aspnetcdn.com/ajax/jquery-2.1.3.js"></script> (microsoft cdn server)
+browser caching: jquery cached on browser.
+Client firewall may block cdn
+
+<script>
+window.jQuery || document.write("<script src='jquery-3.2.1.js'><\/script>
+");
+</script>
+ 
+if jquery loaded successfully, jquery property loaded on window.
+
+Selectors in jquery:
+1) elementid
+2) element tag name
+3) class name
+4) attribute
+5) element attribute values and more
+	Id selector only returns first element with the id.<br>
+		Javascript getElementById throws error if no element found. Jquery
+		does not throw error
+
+eg: $('p'), $('a'), $('p,a,span');
+$('#myId'): <div id="myId">
+$('*#myId'): all elements with id as myID
+$('.myclass'): <div class="myclass">
+$('.bluediv, .reddiv')
+$('div.myclass'): div elements with class as myclass
+$('a[title]')
+$('a[title="trainer"]')
+$('*').css("color","red");
+$('div[style][title]'): div with both style and title attribute
+
+$('div[style],[title]'): div with either style or title attribute
+
+$('p.p1[title]') : p with  class p1 and title attribute
+
+$('div[style="color:red"],[title="t1"]'): div with either style or title attribute
+
+$('#tableId a').css("color","green");
+//change anchor elements inside table with id as tableId
+
+$("p > em") = every em child tag in paragraph
+
+$("#oListId li:nth-child(3)"): 3rd list item in ordered list
+
+$("li[name]").html("and the goblet"); = list item with name attribute
+
+$("input[type='text']#name").val("derek");
+//textbox with id as name
+
+$("a[href*='google']").css("font-weight","bolder");
+//link has google in it
+
+$("img[alt^='NTT']").css({"border-color": "black", "border-width": "1px"})
+//img alt text begins with NTT
+
+$("a[href^='mailto:'")= link starts with mailto
+
+$("a[href$='pdf']"): link ends with pdf
+
+$("#tableId tr:even") = every even row in the table.
+
+$("#tableId tr:odd") = every odd row in the table.
+
+$("#tableId tr:first") =first row in the table.
+
+$("#tableId tr:last") =last row in the table.
+
+$("#oListId li:not(:contains(the))"): list item that does not contain the keyword.
+
+$("#oListId li").each(function(index){
+	alert($(this).text());
+
+});= for each list item
+
+$("a:contains(myword)") : link that contains word myword in it.
+
+
+$("p:has(i)").hide() = hide paragraph with i tag in it.
+
+alert($("p:has(i)").html());
+ $('ol li:has(h2)').css("color","red");
+ $('ol li h2').css("color","red");
+To unhide element: .show()
+
+$("p:has(i)").html("<i>Some text</i>");
+
+$("p:has(i)").text("Some text"); = cannot use html in a text
+
+$("p:has(i)").append("Some more text"); = adds this text to existing text at end
+
+$("p:has(i)").prepend("Some more text"); = adds this text to existing text at the beg
+
+$("p:has(i)").before("<p id='p1'>new para</p>"); = place a para before paragraph with i tag
+
+$("p:has(i)").after("<p id='p1'>new para</p>"); = place a para after paragraph with i tag
+
+$("p1").click(function(){
+	$(this).remove();
+});
+
+
+
+$("p1").click(function(){
+	$(this).replaceWith('<p>new pa</p>');
+});
+
+
+
+Attributes:
+
+$("#oListId li").addClass("myclass");
+$(".myclass").css("color","red");
+
+$("#oListId li").click(function(){
+	$(this).toggleClass("highlight");
+});
+
+alert($(this).attr("src")); = get particular attribute value.
+
+$("#myid").mouseover(function(){
+	$("#myid").attr("src","ntt-one.png");
+
+});
+
+$("#myid").mouseout(function(){
+	$("#myid").attr("src","ntt-one.png");
+
+});
+
+
+$("h2").hover(function(){
+	$("#myid").attr("src","ntt-one.png");
+
+}, function(){
+$("#myid").attr("src","ntt-two.png");
+});
+
+
+$("#myid").dblclick(function(){
+	$(this).attr("src","ntt-one.png");
+
+});
+
+$(document).click(function(e){
+	$("#id1").val(e.pageX);
+	$("#id2").val(e.pageY);
+});
+
+$(document).mousemove(function(e){
+	$("#id1").val(e.screenX);
+	$("#id2").val(e.screenY);
+});
+
+$(document).keypress(function(e){
+	var keypressed = String.fromCharCode(e.which);
+	alert(keypressed);
+});
+
+
+$("#inputFormEvent").blur(function(){
+	$("#formEvent").text("Left input element");
+});
+
+$("#inputFormEvent").change(function(){
+	$("#formEvent").text("Left input element");
+});
+
+$("#inputFormEvent").focus(function(){
+	$("#formEvent").text("Left input element");
+});
+
+$("#inputFormEvent").select(function(){
+	$("#formEvent").text("Left input element");
+});
+
+
+1.equal selector :[name="value"]
+2.not equal selector :[name!="value"]
+3.contains selector :[name*="value"]
+4.contains word selector :[name~="value"]
+5.contains prefix selector :[name|="value"]
+6.starts with selector :[name^="value"]
+7.end with selector :[name$="value"]
+
+$('div').addClass("myclass");
+$('ol li')
+$('ol').find('li').text("One");
+
+filter: does not modify the collection it is called upon.
+$('ol').filter(function(){
+	return $(this).contains("One");
+});
+
+
+each(), first(), last(), next(), prev(), parent(), children(), siblings()
+
+
+
+$('button').before("<input type='text' id='t1'/>");
+
+$("#t1").on('select', function(){
+	alert("Copied '"+ $(this).val()+ "'");
+});
+
+:input: selects all input elements
