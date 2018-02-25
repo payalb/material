@@ -1,0 +1,2 @@
+If interacting with 1 db: 1 connection pool -> 1 datasource object pointing to jdbc connection pool. Every connection accessed through datasource object.
+To provide global visibility: jndi registry. Datasource reference in jndi directory.

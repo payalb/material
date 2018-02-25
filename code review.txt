@@ -1,0 +1,66 @@
+code review process and tools:
+functional testing
+vi analyzer execution and analyzer
+panel and code verification
+document verification (use case, test case)
+configuration file verification
+documentation peer review completion
+design review
+
+
+javac : optimization eg:
+private static final boolean PRINT = false;
+main(){
+if (PRINT){
+Sysout("hello");
+}
+
+=> 
+private static final boolean PRINT = false;
+main(){
+}
+
+
+Hotspot optimization:
+(At runtime):
+boolean print= false;
+
+public void doStuff(){
+for(int i= 0; i< =10000; i++){
+if(print){
+Sysout("hello");
+}}
+}
+
+=>
+
+Memory leaks issue in automatic memory management. Objects without references.
+Lot of time consumed in garbage collection
+
+Limit waste:
+eg: Long count = 0l;
+for(int i =0; i<10000; i++){
+count += i;
+}
+
+=> 
+
+Long count = 0l;
+for(int i =0; i<10000; i++){
+count = new Long(count + i);
+}
+
+Garbage collection happening
+
+Memory leak:
+Map map= new HashMap();
+map.put(Math.random(), "first val");
+//inserted random number, key not known.. 
+
+sampling of code execution : problem that not reliable. depends on time we look at
+
+instrumentation: overhead, instrumentation code running over real code. pointcut to note time
+
+sample first, instrument later.
+
+own code profiler or  jprofiler, 

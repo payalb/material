@@ -1,0 +1,254 @@
+80 protocols, datatypes, more than 150 type converters
+
+¦ Routing and mediation engine ¦ Enterprise integration patterns (EIPs)
+¦ Domain-specific language (DSL) ¦ Extensive component library
+¦ Payload-agnostic router ¦ Modular and pluggable architecture
+¦ POJO model ¦ Easy configuration
+¦ Automatic type converters ¦ Lightweight core
+¦ Test kit ¦ Vibrant community
+
+camel-spring-boot-archetype
+
+Apache Camel uses URIs to work directly with any kind of Transport or messaging model such as HTTP, ActiveMQ, JMS, JBI, SCA, MINA or CXF, as well as pluggable Components and Data Format options.Apache Camel provides support for Bean Binding and seamless integration with popular frameworks such as CDI, Spring, Blueprint and Guice 
+
+We start with creating a CamelContext - which is a container for Components, Routes etc:
+
+
+router: content based
+
+public class MyRouter extends RouteBuilder{
+public void configure(){
+
+Endpoint newOrder= endpoint(activemq:queue:newOrder);
+Predicate isWidget= xpath("/order/product= 'widget'"); //xml based so using xpath
+
+Endpoint widget= endpoint(activemq:queue:widget);
+
+Endpoint gadget= endpoint(activemq:queue:gadget);
+
+from (neworder)
+.choice()
+.when(iswidget).to(widget)
+otherwise().to(gadget).end() ;
+}
+}
+
+
+from ("direct:foo")
+.to("log:input").end() ;
+}
+}
+
+CamelContext camel= new DefaultCamelContext();
+camel.addRoutes(new MyRouter());
+camel.start();
+Thread.sleep(6000);
+camel.stop();
+
+Main camel= new Main();
+camel.enableHangupSupport();
+camel.setApplicationContext("com/foo/mycamel.xml");
+camel.run(args);
+
+
+
+<route>
+<from uri="activemq:queue:newOrder"/>
+<choice>
+<when>
+<xpath>/order/product='widget'</xpath>
+<to uri="activemq:queue:widget"/>
+</when>
+<otherwise>
+<to uri="activemq:queue:gadget"/>
+</otherwise>
+</choice>
+</route>
+
+
+
+
+<route>
+<from uri="file:inbox/orders"/>
+<choice>
+<when>
+<xpath>/order/product='widget'</xpath>
+<to uri="activemq:queue:widget"/>
+</when>
+<otherwise>
+<to uri="activemq:queue:gadget"/>
+</otherwise>
+</choice>
+</route>
+
+
+<route>
+<from uri="file:inbox/orders?delete=true"/>
+<choice>
+<when>
+<xpath>/order/product='widget'</xpath>
+<to uri="activemq:queue:widget"/>
+</when>
+<otherwise>
+<to uri="activemq:queue:gadget"/>
+</otherwise>
+</choice>
+</route>
+
+Messages between a provider and a consumer are managed by a message exchange container, which contains an unique message id, exception information, incoming and outgoing messages (i.e. request and response), and the used message exchange pattern (MEP). „In Only“ MEP is used for one-way messages such as JMS whereas „In Out“ MEP executes request-response communication such as a client side HTTP based request and its response from the server side.
+
+
+from(“file:target/inbox”)
+
+                      .process(new LoggingProcessor())
+
+                      .bean(new TransformationBean(), 
+
+                                  “makeUpperCase”)                                                   
+
+.to(“file:target/outbox/dvd”);
+
+}
+
+}
+. Any number of routes can be implemented within one „configure“ method.
+
+<beans … >
+
+ 
+
+<bean class=”mwea.TransformationBean” id=”transformationBean”/>
+
+<bean class=”mwea.LoggingProcessor” id=”loggingProcessor”/>
+
+ 
+
+<camelContext xmlns=”http://camel.apache.org/schema/spring”>
+
+<package>mwea</package>
+
+ 
+
+<route>
+
+        <from uri=”file:target/inbox”/>
+
+                    <process ref=”loggingProcessor”/>
+
+                    <bean ref=”transformationBean”/>
+
+        <to uri=”file:target/outbox”/>
+
+    </route>
+
+ 
+
+</camelContext>
+
+ 
+
+</beans>
+
+
+Processor is a simple Java interface with one single method: „process“. Inside this method, you can do whatever you need to solve your integration problem, e.g. transform the incoming message, call other services, and so on.
+
+ 
+
+public class LoggingProcessor implements Processor {
+
+@Override
+
+public void process(Exchange exchange) throws Exception {
+
+System.out.println(“Received Order: ” +
+
+exchange.getIn().getBody(String.class));
+
+}
+
+}
+
+
+public class TransformationBean {
+
+public String makeUpperCase(String body) {
+
+String transformedBody = body.toUpperCase();
+
+return transformedBody;
+
+}
+
+}
+
+
+More than 150 automatic type converters are included from scratch, e.g. FileToString, CollectionToObject[] or URLtoInputStream. By the way: Further type converters can be created and added to the CamelContext easily [7].
+
+If a Bean only contains one single method, it even can be omitted in the route. The above call therefore could also be .bean(new TransformationBean()) instead of .bean(new TransformationBean(), “makeUpperCase”).
+
+ 
+
+public class IntegrationRoute extends RouteBuilder {
+
+@Override
+
+public void configure() throws Exception {
+
+from(“file:target/inbox”)
+
+.process(new LoggingProcessor())
+
+.bean(new TransformationBean())
+
+.unmarshal().csv()
+
+.split(body().tokenize(“,”))
+
+.choice()
+
+.when(body().contains(“DVD”))
+
+.to(“file:target/outbox/dvd”)
+
+.when(body().contains(“CD”))
+
+.to(“activemq:CD_Orders”)
+
+.otherwise()
+
+.to(“mock:others”);
+
+}
+
+}
+
+
+
+filter
+splitter
+aggregator
+pipes 
+resequencer
+
+
+jboss fuse+ camel+ maven: 5 days
+
+
+
+jboss fuse: integration of applications, diff protocols, diff outputs, open source esb, routing, transformation, communicating
+
+cloud: distributed system
+
+
+jboss fuse:
+https://developers.redhat.com/auth/realms/rhd/protocol/openid-connect/auth?response_type=code&client_id=download-manager-client&redirect_uri=https%3A%2F%2Fdevelopers.redhat.com%2Fdownload-manager%2Frest%2Fkeycloak&state=dd1fdc74-ff42-4610-8e47-59631a0e2d3d&login=true&scope=openid
+
+apache camel: routing and mediation
+activemq: message broker
+cxf: web service request
+karaf: osgi runtime container
+spring/ blueprint: ioc/ di/ routing logic
+3rd party libraries
+
+jboss fuse fabric: to manage multiple containers
+developer: jboss studio

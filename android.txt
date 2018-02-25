@@ -1,0 +1,38 @@
+linux based os, 
+anim: animation files, to access: R.anim
+color/ : saved in res/color : R.color
+drawable: res/drawable/ : R.drawable
+layout: res/layout/ : R.layout
+menu: res/menu/ : R.menu
+raw: Resources.openRawResource() passing resource id, R.raw.filename
+values/ : arrays.xml, integers.xml, bools.xml, colors.xml, dimens.xml, strings.xml, styles.xml
+xml: Resources.getXML()
+R class is generated when android app is compiled which has resource ids for all resources available in res directory.
+
+Button: onClick: onButtonClick
+public void onButtonClick(View v){
+
+	EditText t1= findViewById(R.id.editText1);
+	EditText t2= findViewById(R.id.editText2);
+	TextView t= findViewById(R.id.textView);
+	int num1= Integer.parseInt(t1.getText().toString());
+int sum= num1+num2;
+t.setText(Integer.toString(sum));
+}
+
+wrap_content: component big enough to display it's content.
+layout height: wrap_content
+fill_parent: display as much as parent
+
+match_parent: same as fill_parent
+
+password, button, textview: like label, edittext
+
+button.setOnClickListener(new View.onClickListener(){
+public void onClick(View v){
+Toast.makeText(MainActivity.this, password.getText(), Toast.length_short).show();
+}}
+
+checkbox:
+
+radiogroup: to group radio buttons.

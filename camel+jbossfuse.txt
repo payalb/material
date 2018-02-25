@@ -1,0 +1,3 @@
+Brief intro of Apache Camel and Jboss fuse
+File transfer application using apache camel on jboss fuse
+camel+ cxf webservice + jboss fuse

@@ -1,0 +1,24 @@
+8411037733, 
+
+angular4
+reactive single page applications
+angular1 vs angular2 vs angular4
+
+angular cli (needs node.js): create, manage dependencies,build angular app. Compiles program
+1. install node.js
+To install cli
+2. npm install -g @angular/cli (on linux use sudo before this command)
+Create new angular project
+3. ng new my-dream-app
+4. cd my-dream-app
+Run the project: build source code, compile typescript. Run web server to bundle all resources used.
+5. ng serve
+http://localhost:4200
+
+IDE: microsoft visual studio( free), sublime text, atom
+
+src: index.html: which app serves
+environment: for environment variables.
+app : app.component.ts: title shown on running app.
+	app.component.html: {{title}}
+

@@ -1,0 +1,21 @@
+
+
+	public static Connection getConnection() throws ShowException {
+		Connection conn = null;
+
+		try {
+			Class.forName("org.postgresql.Driver");
+			 conn = 
+			DriverManager.getConnection (
+			"jdbc:postgresql://localhost/postgres", "postgres", "postgres");
+
+		}
+
+		catch (SQLException e) {
+			throw new ShowException("SQL Error:"+e.getMessage());
+		} catch (ClassNotFoundException e) {
+			throw new ShowException("message from DB/NamingExc:"
+					+ e.getMessage());
+		}
+		return conn;
+	}

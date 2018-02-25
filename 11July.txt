@@ -1,0 +1,5 @@
+Eduramp: bangalore : soa +java, spring, boot, data, security, microservices
+
+25th july to 28th july
+
+java ->j2ee -> 35 days ..2yrs.. 12k java, struts, hibernate

@@ -1,0 +1,3 @@
+design pattern
+1) strategy
+some animals can fly, some cannot

@@ -1,0 +1,27 @@
+akka tool, not a framework, can be added to existing project. No need to rearchitecture your application
+
+Single unified programming model for simpler, concurrent, distribution and fault tolerance.
+Actor model, No need to worry about shared state, thread, locks. Illusion of coding single threaded app in akka, high cpu utitlization, low latency, high throughput, scalability
+
+
+Perfect programming model for cloud, elastic, self-healing, load balancing, cluster rebalancing, from local to remote by configuration.
+Can be used in java, scala,
+
+Use cases for akka:
+1) transaction processing
+2) service backend
+3) concurrency/ parallelism
+4) batch processing
+
+Actor model: 1986 implemented in airline
+Actor accept and responds to message it receives. Each actor has own mailbox/ queue. Order preserved. So 1 message depends on result of other can be done.
+Actor: fundamental unit of computation that embodies processing (behavior can be changed at runtime based on a trigger, if limit reached, should behave differently), storage (state kept within actor, so 1 actor cannot influence state of other), communication b/w actors. 
+
+Actor represented by ActorRef to send messages. Ordered mailbox, asynchronous immutable messages, one message handled at a time, each actor has a unique address. no shared state, state decoupled from threads, only occupy a thread when handling a message, lightweight.
+
+Architecture: handle messages, different behaviors, definition of props (blueprint of an actor, actors can be created through it, no need to invoke constructor), lifecycle events(methods to be overriden in actor)
+
+Actor can change it's state, behavior and can create more actors.
+
+https://akka.io/try-akka/
+
